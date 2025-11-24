@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>ClubFit – Clube de Benefícios para Academias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Transforme sua academia em uma marca desejada com um clube de benefícios digital exclusivo para seus alunos." />
+  <style>
+    /* ---------- FORM ---------- */
+    .form-grid-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.85rem;
+      margin-top: 1rem;
+      text-align: left;
+    }
+
+    @media (min-width: 720px) {
+      .form-grid-two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.82rem;
+    }
+
+    .field-label {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .field-label span {
+      color: #f97373;
+      margin-left: 2px;
+    }
+
+    .field-helper {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      padding: 0.55rem 0.9rem;
+      font-size: 0.84rem;
+      outline: none;
+      width: 100%;
+    }
+
+    .field textarea {
+      border-radius: 14px;
+      min-height: 80px;
+      resize: vertical;
+      line-height: 1.4;
+      padding-top: 0.6rem;
+      padding-bottom: 0.6rem;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
+    }
+
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, #9ca3af 50%), 
+                        linear-gradient(135deg, #9ca3af 50%, transparent 50%);
+      background-position: calc(100% - 15px) calc(50% - 3px), 
+                           calc(100% - 10px) calc(50% - 3px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .checkbox-row,
+    .radio-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.6rem;
+      text-align: left;
+    }
+
+    .checkbox-row input,
+    .radio-row input {
+      width: auto;
+      margin-top: 2px;
+    }
+
+    .options-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1rem;
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .options-inline label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .options-inline input {
+      width: auto;
+    }
+
+    .lead-form-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      align-items: stretch;
+    }
+
+    @media (min-width: 640px) {
+      .lead-form-actions {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .lead-note {
+      font-size: 0.74rem;
+      color: var(--text-soft);
+      text-align: left;
+    }
+
+    .lead-form-box {
+      max-width: 36rem;
+      margin: 0 auto;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 1.8rem 1.6rem;
+      text-align: center;
+    }
+
+    .lead-form-box h3 {
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .lead-form-box p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin-bottom: 1rem;
+    }
+
+    /* ---------- BASE (AZUL CLUBFIT) ---------- */
+    :root {
+      --bg: #020617;
+      --bg-alt: #0b1020;
+      --bg-soft: #0f172a;
+      --primary: #2563eb; /* azul ClubFit */
+      --primary-soft: rgba(37, 99, 235, 0.18);
+      --text: #f9fafb;
+      --text-soft: #9ca3af;
+      --danger: #f97373;
+      --max-width: 1120px;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d4ed8 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      padding: 1.25rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.96), rgba(2, 6, 23, 0.6), transparent);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 10%, #dbeafe, #2563eb 45%, #1d4ed8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: #eff6ff;
+      box-shadow: 0 0 32px rgba(37, 99, 235, 0.6);
+    }
+
+    .logo-text-title {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-link {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .btn {
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      color: #f9fafb;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.75);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: var(--radius-full);
+      padding: 0.25rem 0.7rem 0.25rem 0.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .chip-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #dbeafe;
+      font-size: 0.8rem;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 3rem 0 3.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (min-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.6fr);
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(1.9rem, 3vw + 1.2rem, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-top: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #dbeafe, #38bdf8, #2563eb);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--text-soft);
+      max-width: 34rem;
+    }
+
+    .hero-subtitle strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-note-pill {
+      border-radius: var(--radius-full);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.15rem 0.65rem;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top left, #0f172a, #020617 60%);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .hero-metric {
+      font-size: 0.8rem;
+      color: var(--primary);
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-pill {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      color: var(--text-soft);
+    }
+
+    .hero-list {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      margin-top: 0.5rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .hero-list li::before {
+      content: "• ";
+      color: var(--primary);
+    }
+
+    .badge-floating {
+      position: absolute;
+      right: 0.3rem;
+      top: -0.7rem;
+      transform: translateY(-50%);
+      border-radius: 1rem;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(37, 99, 235, 0.6);
+      padding: 0.45rem 0.8rem;
+      font-size: 0.72rem;
+      color: #dbeafe;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.8);
+    }
+
+    .badge-floating span {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Sections */
+    section {
+      padding: 2.8rem 0;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .section-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: 1.75rem;
+      max-width: 40rem;
+    }
+
+    .section-kicker {
+      font-size: 0.8rem;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr);
+      gap: 1.75rem;
+    }
+
+    @media (min-width: 880px) {
+      .grid-2 {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.6);
+      padding: 1.35rem 1.4rem;
+    }
+
+    .card-soft {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.4);
+    }
+
+    .card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .list {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      padding-left: 1rem;
+    }
+
+    .list li {
+      margin-bottom: 0.35rem;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--text-soft);
+    }
+
+    .pill-strong {
+      border-color: rgba(37, 99, 235, 0.7);
+      color: #dbeafe;
+      background: rgba(37, 99, 235, 0.18);
+    }
+
+    .steps {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .step-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.12rem;
+    }
+
+    .step-text {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .three-cols {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.1rem;
+    }
+
+    @media (min-width: 880px) {
+      .three-cols {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--primary);
+    }
+
+    .faq {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .faq-item {
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(30, 64, 175, 0.6);
+      padding: 1rem 1.1rem;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .faq-q {
+      font-size: 0.92rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .faq-a {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .final-call {
+      text-align: center;
+      max-width: 40rem;
+      margin: 0 auto;
+    }
+
+    .final-call h2 {
+      font-size: 1.5rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.7rem;
+    }
+
+    .final-call p {
+      font-size: 0.94rem;
+      color: var(--text-soft);
+      margin-bottom: 1.3rem;
+    }
+
+    #lead-form {
+      padding: 2.5rem 0 3.2rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    footer {
+      padding: 1.6rem 0 2rem;
+      border-top: 1px solid rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .muted {
+      color: var(--text-soft);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container nav">
+        <div class="logo">
+          <div class="logo-mark">CF</div>
+          <div>
+            <div class="logo-text-title">ClubFit</div>
+            <div class="logo-text-sub">Clube de benefícios para academias</div>
+          </div>
+        </div>
+        <div class="nav-cta">
+          <a href="#como-funciona" class="nav-link">Como funciona</a>
+          <a href="#piloto" class="nav-link">Programa piloto</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+          <a href="#lead-form" class="btn btn-primary">Quero ser piloto</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="chip">
+              <span class="chip-dot">★</span>
+              Clube digital exclusivo para academias pequenas
+            </div>
+            <h1 class="hero-title">
+              Transforme sua academia numa <span>marca desejada</span> – sem gastar como as grandes redes.
+            </h1>
+            <p class="hero-subtitle">
+              Um <strong>clube de benefícios digital</strong>, com a cara da sua academia, que aumenta retenção, valor percebido e faz o aluno pensar duas vezes antes de cancelar o plano.
+            </p>
+            <div class="hero-actions">
+              <a href="#lead-form" class="btn btn-primary">
+                Quero ser academia piloto →
+              </a>
+              <a href="#como-funciona" class="btn btn-ghost">
+                Ver como funciona
+              </a>
+            </div>
+            <div class="hero-note">
+              <span class="hero-note-pill">Vagas limitadas por cidade</span>
+              <span>Focado em academias pequenas, studios e boxes.</span>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <div class="hero-tag">Painel simplificado da academia</div>
+                <div class="hero-metric">+ retenção, – cancelamento</div>
+              </div>
+              <div class="hero-pills">
+                <div class="hero-pill">Alunos ativos</div>
+                <div class="hero-pill">Parceiros locais</div>
+                <div class="hero-pill">Benefícios usados</div>
+                <div class="hero-pill">White label</div>
+              </div>
+              <ul class="hero-list">
+                <li>Sem app caro, sem cartão físico, sem sistema complexo.</li>
+                <li>Seu aluno usa benefícios no comércio local direto do celular.</li>
+                <li>Você acompanha tudo num painel simples e visual.</li>
+              </ul>
+            </div>
+            <div class="badge-floating">
+              Programa piloto aberto para poucas <span>academias por cidade</span>.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DOR -->
+      <section id="dor">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">A dor invisível</div>
+            <h2 class="section-title">
+              As grandes redes não estão te matando no treino… mas na cabeça do aluno.
+            </h2>
+            <p class="section-subtitle">
+              Enquanto você luta com aluguel, folha e manutenção, elas vencem no aplicativo, nos benefícios e na sensação de “experiência completa”. O aluno não fala, mas pensa: “se é quase o mesmo preço… vou onde parece melhor”.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>O que as grandes redes têm que você ainda não tem?</h3>
+              <ul class="list">
+                <li>App próprio, clube de vantagens, notificações e gamificação.</li>
+                <li>Percepção de modernidade, tecnologia e “marca grande”.</li>
+                <li>Programas de fidelidade que seguram o aluno quando ele pensa em cancelar.</li>
+              </ul>
+            </div>
+            <div class="card card-soft">
+              <h3>O efeito silencioso disso na sua academia</h3>
+              <ul class="list">
+                <li>Aluno entra, treina alguns meses e some sem criar vínculo.</li>
+                <li>Seu diferencial vira só preço e simpatia.</li>
+                <li>A sensação constante de estar “correndo atrás” das redes, sempre um passo atrás.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- O QUE É -->
+      <section id="o-que-e">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">O que é o ClubFit</div>
+            <h2 class="section-title">
+              Um clube de benefícios digital pronto, com a cara da sua academia – não com a nossa.
+            </h2>
+            <p class="section-subtitle">
+              O ClubFit transforma sua academia numa marca moderna e desejada, sem você precisar virar uma rede gigante ou investir em tecnologia cara. Seus alunos ganham vantagens reais, todo mês, no dia a dia.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <div class="label">Na prática, para o aluno:</div>
+              <p>
+                Ele acessa o clube de benefícios pelo celular, vê os parceiros da região, escolhe o benefício e gera um QR Code na hora para usar no estabelecimento. Simples, rápido e com cara de “coisa de rede grande”.
+              </p>
+              <ul class="list">
+                <li>Acesso digital: nada de carteirinha, nada de papel.</li>
+                <li>Benefícios em restaurantes, lojas, saúde, estética e bem-estar.</li>
+                <li>Motivo real pra continuar aluno da sua academia.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="label">Na prática, para você:</div>
+              <p>
+                Você continua focado no que sabe fazer – treinar pessoas – enquanto o ClubFit cuida da experiência ao redor: benefícios, sensação de pertencimento e diferencial de mercado.
+              </p>
+              <ul class="list">
+                <li>Plataforma web, sem precisar de app próprio.</li>
+                <li>Portal com logo, cores e nome da sua academia.</li>
+                <li>Painel simples mostrando uso, alunos ativos e parceiros.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMO FUNCIONA -->
+      <section id="como-funciona">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">Como funciona</div>
+            <h2 class="section-title">
+              Em 3 passos, sua academia oferece algo que hoje só rede gigante tem.
+            </h2>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <div class="steps">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div>
+                    <div class="step-title">Você entra como academia piloto</div>
+                    <div class="step-text">
+                      Configuramos o ClubFit com o nome, logo e cores da sua academia. A experiência é white label: o aluno vê a sua marca, não a nossa.
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div>
+                    <div class="step-title">Você cadastra alunos e parceiros locais</div>
+                    <div class="step-text">
+                      Em poucos minutos, sua base de alunos está dentro do clube de benefícios. Você conecta o comércio da região à sua academia de forma estratégica.
+                    </div>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div>
+                    <div class="step-title">Os alunos usam benefícios e você acompanha tudo</div>
+                    <div class="step-text">
+                      Seus alunos geram QR Codes, usam os benefícios nos parceiros e você vê, pelo painel, quantos estão ativos, quais parceiros são mais usados e o impacto real na retenção.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:1.5rem;">
+                <a href="#lead-form" class="btn btn-primary">
+                  Quero ver se minha academia pode ser piloto →
+                </a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="label">Tecnologia sem complicação</div>
+              <p>
+                Tudo funciona em uma plataforma web responsiva. Seu aluno acessa pelo navegador do celular, o parceiro valida ali mesmo, e você acompanha em qualquer computador ou tablet.
+              </p>
+              <div class="pill-row">
+                <span class="pill pill-strong">Sem app caro</span>
+                <span class="pill">Sem cartão físico</span>
+                <span class="pill">QR Code dinâmico</span>
+                <span class="pill">Validação por CPF (backup)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BENEFÍCIOS -->
+      <section id="beneficios">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">Benefícios na prática</div>
+            <h2 class="section-title">
+              Academia, aluno e comércio local jogando do mesmo lado.
+            </h2>
+          </div>
+
+          <div class="three-cols">
+            <div class="card">
+              <div class="tag">
+                <span class="tag-dot"></span> Para a academia
+              </div>
+              <h3>Você sai do “mais uma academia” e vira “a academia que tem clube”.</h3>
+              <ul class="list">
+                <li>Ferramenta de fidelização exclusiva, feita para academias pequenas.</li>
+                <li>Aumento de retenção: o aluno deixa de comparar só por preço.</li>
+                <li>Diferencial na hora de vender planos e planos anuais.</li>
+                <li>Imagem moderna, de marca organizada e tecnológica.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="tag">
+                <span class="tag-dot"></span> Para o aluno
+              </div>
+              <h3>Ele não é só “mais um aluno”: ele sente que faz parte de um clube.</h3>
+              <ul class="list">
+                <li>Clube digital de benefícios no bolso, pelo celular.</li>
+                <li>Vantagens reais no dia a dia: alimentação, estética, saúde, serviços.</li>
+                <li>Mais um motivo emocional para não cancelar o plano.</li>
+                <li>Sensação de pertencimento à sua academia, não ao “mercado fitness” genérico.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="tag">
+                <span class="tag-dot"></span> Para os parceiros
+              </div>
+              <h3>Comércio local conectado a um público que gasta e se cuida.</h3>
+              <ul class="list">
+                <li>Acesso a um público segmentado: quem se preocupa com saúde.</li>
+                <li>Canal de marketing sem gastar com mídia e anúncio.</li>
+                <li>Validação simples, por QR Code ou CPF.</li>
+                <li>Mais movimento em dias e horários estratégicos.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIFERENCIAIS / PILOTO -->
+      <section id="piloto">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">Por que é diferente</div>
+            <h2 class="section-title">
+              Não é “mais um sisteminha”. É arma de guerra no seu mercado local.
+            </h2>
+            <p class="section-subtitle">
+              O ClubFit nasce da realidade de academias pequenas, studios e boxes – não de rede gigante tentando empurrar solução genérica. É pensado para o seu contexto, sua cidade, sua luta diária.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Feito para academias pequenas</h3>
+              <p>
+                Nada de plataforma de varejo adaptada. O fluxo é pensado para o dia a dia de quem lida com aluno, professor, horário de pico, boleto e inadimplência.
+              </p>
+              <ul class="list">
+                <li>White label: logo, cores e nome da sua academia.</li>
+                <li>Interface enxuta: seu time aprende em 1 dia.</li>
+                <li>Escalável: começa em 1 unidade, pode crescer para várias.</li>
+              </ul>
+            </div>
+            <div class="card card-soft">
+              <h3>Programa piloto: poucas academias por cidade</h3>
+              <p>
+                Nesta primeira fase, estamos selecionando algumas academias piloto em 3 cidades da região. A ideia é estar perto, ajustar junto e criar cases fortes antes de abrir para todo mundo.
+              </p>
+              <ul class="list">
+                <li>Condição comercial especial para academia piloto.</li>
+                <li>Acesso direto à equipe que está construindo o ClubFit.</li>
+                <li>Prioridade em novas funcionalidades e melhorias.</li>
+              </ul>
+              <div style="margin-top:1.2rem;">
+                <a href="#lead-form" class="btn btn-primary">
+                  Quero ser academia piloto →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <div class="container section-inner">
+          <div class="section-header">
+            <div class="section-kicker">FAQ</div>
+            <h2 class="section-title">
+              As dúvidas que um dono de academia teria – respondidas direto.
+            </h2>
+          </div>
+
+          <div class="faq">
+            <div class="faq-item">
+              <div class="faq-q">Preciso investir em algum equipamento novo?</div>
+              <div class="faq-a">
+                Não. Tudo funciona via web, pelo celular. Seu aluno acessa o clube pelo navegador, e o parceiro valida pelo próprio celular ou computador.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Isso dá muito trabalho para o meu time?</div>
+              <div class="faq-a">
+                Não. O cadastro inicial de alunos e parceiros é simples, e a gente orienta no processo. Depois disso, o fluxo é natural: aluno usa, parceiro valida, você acompanha.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">E se o aluno passar o QR Code para o amigo?</div>
+              <div class="faq-a">
+                O sistema usa QR Codes dinâmicos, com tempo de expiração e controle de uso. Além disso, o parceiro pode validar o benefício pelo CPF do aluno, garantindo que a vantagem é dele.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Já vem com parceiros incluídos?</div>
+              <div class="faq-a">
+                Começamos pelos parceiros da sua própria região – aqueles que você já confia ou quer indicar. Com o tempo, a rede de parceiros vai se ampliando de forma estruturada.
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Quanto custa para participar do programa piloto?</div>
+              <div class="faq-a">
+                Para as academias piloto, estamos criando uma condição abaixo de qualquer solução robusta de mercado hoje. A ideia é que o custo se pague com poucos alunos retidos. Os detalhes são alinhados caso a caso, após entender sua realidade.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CALL -->
+      <section id="cta-final">
+        <div class="container section-inner">
+          <div class="final-call">
+            <h2>
+              As redes grandes vão continuar parecendo melhores que você… a não ser que você mude o jogo.
+            </h2>
+            <p>
+              Treino, professor e atendimento contam muito. Mas na cabeça do aluno, quem oferece clube, benefícios e experiência completa leva vantagem. O ClubFit existe para colocar a sua academia nesse patamar – mantendo sua essência de academia próxima, humana e de bairro.
+            </p>
+            <a href="#lead-form" class="btn btn-primary">
+              Quero ser academia piloto do ClubFit →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEAD FORM REAL -->
+      <section id="lead-form">
+        <div class="container">
+          <div class="lead-form-box">
+            <h3>Quero ser academia piloto</h3>
+            <p>
+              Preencha os dados abaixo para avaliarmos se a sua academia faz sentido para o programa piloto do ClubFit.
+            </p>
+
+            <form action="#" method="post" autocomplete="on">
+              <div class="form-grid-two">
+                <div class="field">
+                  <label class="field-label" for="nome-academia">
+                    Nome da academia <span>*</span>
+                  </label>
+                  <input type="text" id="nome-academia" name="nome_academia" required />
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="responsavel">
+                    Nome do responsável <span>*</span>
+                  </label>
+                  <input type="text" id="responsavel" name="responsavel" required />
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="cargo">
+                    Cargo <span>*</span>
+                  </label>
+                  <select id="cargo" name="cargo" required>
+                    <option value="">Selecione</option>
+                    <option value="dono">Dono(a) / Sócio(a)</option>
+                    <option value="gestor">Gestor(a) / Coordenador(a)</option>
+                    <option value="professor">Professor(a)</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="whatsapp">
+                    WhatsApp para contato <span>*</span>
+                  </label>
+                  <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000" required />
+                  <div class="field-helper">Usaremos esse número apenas para falar sobre o programa piloto.</div>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="email">
+                    E-mail <span>*</span>
+                  </label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="cidade">
+                    Cidade <span>*</span>
+                  </label>
+                  <input type="text" id="cidade" name="cidade" required />
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="estado">
+                    Estado (UF) <span>*</span>
+                  </label>
+                  <select id="estado" name="estado" required>
+                    <option value="">Selecione</option>
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="tipo-operacao">
+                    Tipo de operação <span>*</span>
+                  </label>
+                  <select id="tipo-operacao" name="tipo_operacao" required>
+                    <option value="">Selecione</option>
+                    <option value="academia">Academia de bairro</option>
+                    <option value="studio">Studio (funcional, pilates, etc.)</option>
+                    <option value="box">Box de crossfit</option>
+                    <option value="rede-pequena">Pequena rede (2–5 unidades)</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="alunos-ativos">
+                    Quantos alunos ativos você tem hoje? <span>*</span>
+                  </label>
+                  <select id="alunos-ativos" name="alunos_ativos" required>
+                    <option value="">Selecione</option>
+                    <option value="-100">Menos de 100</option>
+                    <option value="100-249">100 a 249</option>
+                    <option value="250-499">250 a 499</option>
+                    <option value="500-999">500 a 999</option>
+                    <option value="1000+">1000 ou mais</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label class="field-label">
+                    Já usa algum app ou sistema de fidelidade hoje? <span>*</span>
+                  </label>
+                  <div class="options-inline">
+                    <label>
+                      <input type="radio" name="usa_fidelidade" value="sim" required />
+                      Sim
+                    </label>
+                    <label>
+                      <input type="radio" name="usa_fidelidade" value="nao" required />
+                      Não
+                    </label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="field-label" for="objetivo">
+                    Principal objetivo com o ClubFit <span>*</span>
+                  </label>
+                  <select id="objetivo" name="objetivo" required>
+                    <option value="">Selecione</option>
+                    <option value="retencao">Aumentar retenção de alunos</option>
+                    <option value="diferenciar">Diferenciar da concorrência</option>
+                    <option value="valor-percebido">Aumentar valor percebido da academia</option>
+                    <option value="parcerias">Estruturar parcerias com comércio local</option>
+                    <option value="outro">Outro (explico abaixo)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field" style="margin-top:1rem;">
+                <label class="field-label" for="dor">
+                  Me conta em 2 frases qual é hoje a sua maior dificuldade para reter alunos:
+                </label>
+                <textarea id="dor" name="dor" placeholder="Ex: alunos entram, treinam 3 meses e somem sem criar vínculo..."></textarea>
+              </div>
+
+              <div class="field" style="margin-top:0.8rem;">
+                <label class="field-label" for="quando">
+                  Se o ClubFit fizer sentido para você, quando gostaria de começar?
+                </label>
+                <select id="quando" name="quando">
+                  <option value="">Selecione</option>
+                  <option value="imediato">Imediatamente</option>
+                  <option value="30-dias">Dentro dos próximos 30 dias</option>
+                  <option value="2-3-meses">Em 2 a 3 meses</option>
+                  <option value="apenas-estudando">Apenas estudando possibilidades por enquanto</option>
+                </select>
+              </div>
+
+              <div class="checkbox-row">
+                <input type="checkbox" id="lgpd" name="lgpd" required />
+                <label for="lgpd">
+                  Autorizo o contato por WhatsApp/e-mail para falar sobre o programa piloto do ClubFit. Sei que posso solicitar parar de receber mensagens a qualquer momento.
+                </label>
+              </div>
+
+              <div class="lead-form-actions">
+                <button type="submit" class="btn btn-primary" style="width:100%;max-width:220px;">
+                  Enviar candidatura →
+                </button>
+                <div class="lead-note">
+                  Usamos essas informações apenas para entender se sua academia se encaixa no piloto e para organizar a ordem de contato. Sem spam, sem empurrar nada goela abaixo.
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div>© <span id="year"></span> ClubFit. Todos os direitos reservados.</div>
+        <div class="muted">Feito para academias pequenas, studios e boxes que querem jogar grande.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
