@@ -1311,7 +1311,7 @@
     </footer>
   </div>
 
-  <script>
+ <script>
   // Atualiza ano do footer
   document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -1337,8 +1337,9 @@
       });
 
       if (response.ok) {
-        alert("Recebemos sua candidatura! Vamos analisar e entrar em contato.");
-        form.reset();
+        // Se salvou na planilha, manda para a página de obrigado
+        window.location.href = "/obrigado.html";
+        return;
       } else {
         alert("Erro ao enviar. Por favor, tente novamente.");
       }
@@ -1351,9 +1352,5 @@
     submitButton.textContent = "Enviar candidatura →";
   });
 </script>
-</body>
-</html>
-;
-  </script>
 </body>
 </html>
