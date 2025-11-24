@@ -1312,7 +1312,48 @@
   </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+  // Atualiza ano do footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // URL do Google Apps Script que grava na planilha
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxX8-IAo0O2qAV-DluuvLDQxGKI8PDK2zHWLAzX8FL3RTSCOozlnGEDQ_F_LF4jeU8y/exec";
+
+  // Pega o formulário dentro da section #lead-form
+  const form = document.querySelector("#lead-form form");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // impede o reload da página
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Enviando...";
+
+    try {
+      const formData = new FormData(form);
+
+      const response = await fetch(scriptURL, {
+        method: "POST",
+        body: formData
+      });
+
+      if (response.ok) {
+        alert("Recebemos sua candidatura! Vamos analisar e entrar em contato.");
+        form.reset();
+      } else {
+        alert("Erro ao enviar. Por favor, tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Falha de conexão. Tente novamente em instantes.");
+    }
+
+    submitButton.disabled = false;
+    submitButton.textContent = "Enviar candidatura →";
+  });
+</script>
+</body>
+</html>
+;
   </script>
 </body>
 </html>
