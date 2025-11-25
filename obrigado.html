@@ -95,17 +95,20 @@
       font-size: 0.9rem;
       color: var(--text-soft);
       list-style: none;
+      padding-left: 0;
     }
 
     .steps li {
       margin-bottom: 0.4rem;
       display: flex;
       gap: 0.4rem;
+      line-height: 1.5;
     }
 
     .steps li span {
       color: var(--primary);
       font-weight: 600;
+      min-width: 1.2rem;
     }
 
     .actions {
@@ -166,31 +169,45 @@
     <div class="card">
       <div class="logo">
         <div class="logo-mark">CF</div>
-        <div class="logo-text-title">ClubFit</div>
+        <div class="logo-text-title">CLUBFIT</div>
       </div>
 
       <h1>Recebemos sua candidatura 🚀</h1>
+
       <p>
         Sua academia entrou na lista para o <span class="highlight">programa piloto do ClubFit</span>.  
-        Vamos olhar com calma seus dados e entender se faz sentido, de verdade, avançar com você nesse começo.
+        A partir de agora, a gente analisa com calma seus dados pra ver se faz sentido avançar nessa primeira leva.
       </p>
 
       <ul class="steps">
-        <li><span>1.</span> Em até <strong>2 dias úteis</strong>, alguém do time vai olhar manualmente sua candidatura.</li>
-        <li><span>2.</span> Se sua academia fizer sentido para o piloto, entraremos em contato por <strong>WhatsApp ou e-mail</strong>.</li>
-        <li><span>3.</span> Caso não se encaixe agora, vamos te avisar e manter seu contato para futuras turmas.</li>
+        <li>
+          <span>1.</span>
+          Em até <strong>2 dias úteis</strong>, alguém do time vai olhar manualmente a sua candidatura.
+        </li>
+        <li>
+          <span>2.</span>
+          Se a sua academia fizer sentido para o piloto, entraremos em contato por <strong>WhatsApp ou e-mail</strong> para alinhar próximos passos.
+        </li>
+        <li>
+          <span>3.</span>
+          Caso não se encaixe agora, vamos te avisar e manter seu contato para futuras turmas ou formatos que combinem melhor com sua realidade.
+        </li>
       </ul>
+
+      <p class="highlight" style="font-size:0.9rem;margin-bottom:1.4rem;">
+        Dica: se você já quiser adiantar, tenha fácil números como <strong>alunos ativos, tíquete médio e cidade/bairro</strong>. Eles ajudam a acelerar a conversa.
+      </p>
 
       <div class="actions">
         <a href="/" class="btn btn-primary">Voltar para o site</a>
-        <!-- Substitua SEUNUMERO pelo seu número com DDI e DDD, ex: 5541999999999 -->
+        <!-- Troque SEUNUMERO pelo número oficial: ex 5541999999999 -->
         <a href="https://wa.me/5551994559618?text=Ol%C3%A1%2C+quero+falar+sobre+o+programa+piloto+do+ClubFit." class="btn btn-ghost">
           Falar com o time no WhatsApp
         </a>
       </div>
 
       <div class="note">
-        Dica: se você é daqueles que gosta de se organizar, já anota um lembrete para revisar sua caixa de entrada (incluindo spam) nos próximos dias.
+        Se o contato não aparecer em até 2 dias úteis, vale olhar a caixa de spam e, se quiser, mandar mensagem direta pelo botão de WhatsApp aqui em cima.
       </div>
     </div>
   </div>
